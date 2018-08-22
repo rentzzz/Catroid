@@ -58,6 +58,11 @@ pipeline {
 		timestamps()
 	}
 
+	triggers {
+    	cron(env.BRANCH_NAME == 'develop' ? '@midnight' : '')
+  	}
+	
+
 	stages {
 		stage('Setup Android SDK') {
 			steps {
