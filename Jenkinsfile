@@ -73,9 +73,9 @@ pipeline {
 		cron(env.BRANCH_NAME == 'develop' ? '@midnight' : '')
 	}
 
-	triggers {
-    	cron(env.BRANCH_NAME == 'develop' ? '@midnight' : '')
-  	}
+    triggers {
+        cron(env.BRANCH_NAME == 'develop' ? '@midnight' : '')
+    }
 	
 
 	stages {
