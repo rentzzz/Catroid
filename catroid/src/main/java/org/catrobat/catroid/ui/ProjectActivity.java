@@ -71,7 +71,6 @@ import java.io.IOException;
 
 import static org.catrobat.catroid.common.Constants.EXTRA_PICTURE_PATH_POCKET_PAINT;
 import static org.catrobat.catroid.common.Constants.IMAGE_DIRECTORY_NAME;
-import static org.catrobat.catroid.common.FlavoredConstants.DEFAULT_ROOT_DIRECTORY;
 import static org.catrobat.catroid.common.FlavoredConstants.LIBRARY_LOOKS_URL;
 import static org.catrobat.catroid.ui.WebViewActivity.MEDIA_FILE_PATH;
 
@@ -185,12 +184,14 @@ public class ProjectActivity extends BaseCastActivity {
 			FaceDetectionHandler.stopFaceDetection();
 		}
 
-		if (requestCode != RESULT_OK
-				&& SettingsFragment.isCastSharedPreferenceEnabled(this)
-				&& ProjectManager.getInstance().getCurrentProject().isCastProject()
-				&& !CastManager.getInstance().isConnected()) {
+		if (resultCode != RESULT_OK) {
+			if (SettingsFragment.isCastSharedPreferenceEnabled(this)
+					&& ProjectManager.getInstance().getCurrentProject().isCastProject()
+					&& !CastManager.getInstance().isConnected()) {
 
-			CastManager.getInstance().openDeviceSelectorOrDisconnectDialog(this);
+				CastManager.getInstance().openDeviceSelectorOrDisconnectDialog(this);
+			}
+			return;
 		}
 
 		Uri uri;
@@ -212,13 +213,13 @@ public class ProjectActivity extends BaseCastActivity {
 				addSpriteFromUri(uri);
 				break;
 			case SPRITE_CAMERA:
-				uri = Uri.fromFile(new File(DEFAULT_ROOT_DIRECTORY, getString(R.string.default_look_name) + ".jpg"));
+				uri = new ImportFromCameraLauncher(this).getCacheCameraUri();
 				addSpriteFromUri(uri);
 				break;
 		}
 	}
 
-	private void addSpriteFromUri(final Uri uri) {
+	public void addSpriteFromUri(final Uri uri) {
 		final Scene currentScene = ProjectManager.getInstance().getCurrentlyEditedScene();
 
 		String name = StorageOperations.resolveFileName(getContentResolver(), uri);
@@ -240,13 +241,15 @@ public class ProjectActivity extends BaseCastActivity {
 					public void onPositiveButtonClick(DialogInterface dialog, String textInput) {
 						File imageDirectory = new File(currentScene.getDirectory(), IMAGE_DIRECTORY_NAME);
 						Sprite sprite = new Sprite(textInput);
+						currentScene.getSpriteList().add(sprite);
+
 						try {
 							File file = StorageOperations.copyUriToDir(getContentResolver(), uri, imageDirectory, lookName);
 							sprite.getLookList().add(new LookData(lookName, file));
-							currentScene.getSpriteList().add(sprite);
 						} catch (IOException e) {
 							Log.e(TAG, Log.getStackTraceString(e));
 						}
+
 						if (getCurrentFragment() instanceof SpriteListFragment) {
 							((SpriteListFragment) getCurrentFragment()).notifyDataSetChanged();
 						}
@@ -329,8 +332,7 @@ public class ProjectActivity extends BaseCastActivity {
 								.startActivityForResult(SPRITE_FILE);
 						break;
 					case R.id.dialog_new_look_camera:
-						Uri uri = Uri.fromFile(new File(DEFAULT_ROOT_DIRECTORY, getString(R.string.default_look_name) + ".jpg"));
-						new ImportFromCameraLauncher(ProjectActivity.this, uri)
+						new ImportFromCameraLauncher(ProjectActivity.this)
 								.startActivityForResult(SPRITE_CAMERA);
 						break;
 				}
@@ -381,6 +383,10 @@ public class ProjectActivity extends BaseCastActivity {
 	}
 
 	private void showLegoSensorConfigInfo() {
+		if (ProjectManager.getInstance().getCurrentProject() == null) {
+			return;
+		}
+
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean nxtDialogDisabled = preferences
 				.getBoolean(SettingsFragment.SETTINGS_MINDSTORMS_NXT_SHOW_SENSOR_INFO_BOX_DISABLED, false);

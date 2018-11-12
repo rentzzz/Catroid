@@ -40,6 +40,7 @@ import android.widget.RadioButton;
 import org.catrobat.catroid.BuildConfig;
 import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.R;
+import org.catrobat.catroid.cast.CastManager;
 import org.catrobat.catroid.common.LookData;
 import org.catrobat.catroid.common.SoundInfo;
 import org.catrobat.catroid.content.Project;
@@ -79,7 +80,6 @@ import java.util.List;
 import static org.catrobat.catroid.common.Constants.EXTRA_PICTURE_PATH_POCKET_PAINT;
 import static org.catrobat.catroid.common.Constants.IMAGE_DIRECTORY_NAME;
 import static org.catrobat.catroid.common.Constants.SOUND_DIRECTORY_NAME;
-import static org.catrobat.catroid.common.FlavoredConstants.DEFAULT_ROOT_DIRECTORY;
 import static org.catrobat.catroid.common.FlavoredConstants.LIBRARY_BACKGROUNDS_URL_LANDSCAPE;
 import static org.catrobat.catroid.common.FlavoredConstants.LIBRARY_BACKGROUNDS_URL_PORTRAIT;
 import static org.catrobat.catroid.common.FlavoredConstants.LIBRARY_LOOKS_URL;
@@ -229,6 +229,12 @@ public class SpriteActivity extends BaseActivity {
 		}
 
 		if (resultCode != RESULT_OK) {
+			if (SettingsFragment.isCastSharedPreferenceEnabled(this)
+					&& ProjectManager.getInstance().getCurrentProject().isCastProject()
+					&& !CastManager.getInstance().isConnected()) {
+
+				CastManager.getInstance().openDeviceSelectorOrDisconnectDialog(this);
+			}
 			return;
 		}
 
@@ -251,7 +257,7 @@ public class SpriteActivity extends BaseActivity {
 				addSpriteFromUri(uri);
 				break;
 			case SPRITE_CAMERA:
-				uri = Uri.fromFile(new File(DEFAULT_ROOT_DIRECTORY, getString(R.string.default_look_name) + ".jpg"));
+				uri = new ImportFromCameraLauncher(this).getCacheCameraUri();
 				addSpriteFromUri(uri);
 				break;
 			case BACKGROUND_POCKET_PAINT:
@@ -267,7 +273,7 @@ public class SpriteActivity extends BaseActivity {
 				addBackgroundFromUri(uri);
 				break;
 			case BACKGROUND_CAMERA:
-				uri = Uri.fromFile(new File(DEFAULT_ROOT_DIRECTORY, getString(R.string.default_look_name) + ".jpg"));
+				uri = new ImportFromCameraLauncher(this).getCacheCameraUri();
 				addBackgroundFromUri(uri);
 				break;
 			case LOOK_POCKET_PAINT:
@@ -283,7 +289,7 @@ public class SpriteActivity extends BaseActivity {
 				addLookFromUri(uri);
 				break;
 			case LOOK_CAMERA:
-				uri = Uri.fromFile(new File(DEFAULT_ROOT_DIRECTORY, getString(R.string.default_look_name) + ".jpg"));
+				uri = new ImportFromCameraLauncher(this).getCacheCameraUri();
 				addLookFromUri(uri);
 				break;
 			case SOUND_RECORD:
@@ -478,8 +484,7 @@ public class SpriteActivity extends BaseActivity {
 								.startActivityForResult(SPRITE_FILE);
 						break;
 					case R.id.dialog_new_look_camera:
-						Uri uri = Uri.fromFile(new File(DEFAULT_ROOT_DIRECTORY, getString(R.string.default_look_name) + ".jpg"));
-						new ImportFromCameraLauncher(SpriteActivity.this, uri)
+						new ImportFromCameraLauncher(SpriteActivity.this)
 								.startActivityForResult(SPRITE_CAMERA);
 						break;
 				}
@@ -527,8 +532,7 @@ public class SpriteActivity extends BaseActivity {
 								.startActivityForResult(BACKGROUND_FILE);
 						break;
 					case R.id.dialog_new_look_camera:
-						Uri uri = Uri.fromFile(new File(DEFAULT_ROOT_DIRECTORY, getString(R.string.default_look_name) + ".jpg"));
-						new ImportFromCameraLauncher(SpriteActivity.this, uri)
+						new ImportFromCameraLauncher(SpriteActivity.this)
 								.startActivityForResult(BACKGROUND_CAMERA);
 						break;
 				}
@@ -583,8 +587,7 @@ public class SpriteActivity extends BaseActivity {
 								.startActivityForResult(LOOK_FILE);
 						break;
 					case R.id.dialog_new_look_camera:
-						Uri uri = Uri.fromFile(new File(DEFAULT_ROOT_DIRECTORY, getString(R.string.default_look_name) + ".jpg"));
-						new ImportFromCameraLauncher(SpriteActivity.this, uri)
+						new ImportFromCameraLauncher(SpriteActivity.this)
 								.startActivityForResult(LOOK_CAMERA);
 						break;
 				}

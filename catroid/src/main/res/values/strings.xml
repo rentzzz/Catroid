@@ -205,8 +205,8 @@
         later!</string>
     <string name="error_specific_scratch_program_conversion_failed_x">Whoops! Failed to convert %1$s, please try
         again later!</string>
-    <string name="error_scratch_converter_outdated_app_version">Your version of Pocket Code is outdated. Our Scratch
-        converter only works on the latest version. Please update it through Google Play</string>
+    <string name="error_scratch_converter_outdated_app_version">Your version of this app is outdated.
+        Our Scratch converter only works on the latest version. Please update the app.</string>
     <string name="error_cannot_open_not_existing_scratch_program">Cannot open this Scratch program. It seems that you
         have canceled the conversion/download of the Scratch program, or you have renamed/deleted the program in the
         meanwhile!</string>
@@ -459,8 +459,8 @@
 
     <!-- Script Action Mode Titles -->
     <plurals name="am_pack_scripts_title">
-        <item quantity="one">Pack %d brick</item>
-        <item quantity="other">Pack %d bricks</item>
+        <item quantity="one">Pack %d Brick</item>
+        <item quantity="other">Pack %d Bricks</item>
     </plurals>
     <plurals name="am_unpack_scripts_title">
         <item quantity="one">Unpack %d Script</item>
@@ -471,8 +471,8 @@
         <item quantity="other">Copy %d bricks</item>
     </plurals>
     <plurals name="am_delete_bricks_title">
-        <item quantity="one">Delete %d brick</item>
-        <item quantity="other">Delete %d bricks</item>
+        <item quantity="one">Delete %d Brick</item>
+        <item quantity="other">Delete %d Bricks</item>
     </plurals>
 
     <plurals name="am_delete_scripts_title">
@@ -532,7 +532,7 @@
     <string name="script_group_label">Script Group Name</string>
     <string name="look_name_label">Look Name</string>
     <string name="sound_name_label">Sound Name</string>
-    <string name="nfc_tag_name_label">Nfc Tag Name</string>
+    <string name="nfc_tag_name_label">NFC Tag Name</string>
     <string name="string_label">Text</string>
     <string name="data_label">Name</string>
 
@@ -664,6 +664,14 @@
     <string name="description">Description:</string>
     <string name="set_description">Set description</string>
     <string name="details_date_today">Today</string>
+    <string name="import_dialog_title">Import projects</string>
+    <string name="import_dialog_message">Your projects will be moved to private memory.</string>
+    <string name="import_dialog_copy_btn">Copy</string>
+    <string name="import_dialog_move_btn">Move</string>
+    <string name="projects_successful_moved_toast">Projects successfully moved.\n</string>
+    <string name="projects_successful_copied_toast">Projects successfully copied.\n</string>
+    <string name="error_during_copying_projects_toast">Error during copying / moving projects</string>
+    <string name="copying">Copying......</string>
     <!--  -->
 
     <!-- ScriptListFragment -->
@@ -711,8 +719,8 @@
 
 
     <!-- NewDataDialog -->
-    <string name="new_data_for_all_sprites">For all Objects</string>
-    <string name="new_data_for_this_sprite_only">For this Object only</string>
+    <string name="new_data_for_all_sprites">For all objects</string>
+    <string name="new_data_for_this_sprite_only">For this object only</string>
 
 
     <!-- Backpack -->
@@ -726,7 +734,7 @@
     <string name="backgrounds">Backgrounds</string>
     <string name="looks">Looks</string>
     <string name="sounds">Sounds</string>
-    <string name="nfctags">Nfc Tags</string>
+    <string name="nfctags">NFC Tags</string>
 
 
     <!-- NewProjectDialog -->
@@ -860,7 +868,7 @@
     <!-- -->
 
     <!-- About Dialog -->
-    <string name="dialog_about_title">About this app</string>
+    <string name="dialog_about_title">About this App</string>
     <string name="dialog_about_license_info">This app offers a programming
         environment and interpreter for the visual
         programming language Catrobat.\n
@@ -935,15 +943,17 @@
     <string name="sign_in_with_google">Sign in with Google</string>
     <string name="error_register_empty_username">Empty username</string>
     <string name="error_register_username_as_email">E-mail address can not be used as username</string>
-    <string name="error_register_invalid_username">Username can contain only Latin–letters (a–z), numbers (0–9), dashes (-), underscores (_), and periods (.).</string>
-    <string name="error_register_username_start_with">Username can not start with dashes (-), underscores (_), and periods (.).</string>
-    <string name="error_register_invalid_email_format">Invalid E-mail format</string>
-    <string name="error_register_empty_password">Empty Password</string>
+    <string name="error_register_invalid_username">Username should only contain letters (a–z), numbers (0–9),
+        dashes (-), underscores (_), and periods (.).</string>
+    <string name="error_register_username_start_with">Username should not start with dashes (-), underscores (_), or
+        periods (.).</string>
+    <string name="error_register_invalid_email_format">Invalid email format</string>
+    <string name="error_register_empty_password">Password field is empty</string>
     <string name="error_register_password_at_least_6_characters">Password should be at least 6 characters</string>
-    <string name="error_register_passwords_mismatch">Passwords mismatch</string>
-    <string name="error_register_empty_confirm_password">Empty confirm password</string>
+    <string name="error_register_passwords_mismatch">Passwords do not match</string>
+    <string name="error_register_empty_confirm_password">Confirm password field is empty</string>
     <string name="error_register_username_already_exists">Username already exists</string>
-    <string name="error_register_email_exists">Email Address already exists</string>
+    <string name="error_register_email_exists">Email address already exists</string>
     <!--  -->
 
 
@@ -1290,6 +1300,10 @@
     <string name="drone_set_tilt_outdoor">20 degrees </string>
     <string name="drone_set_tilt_max">30 degrees</string>
 
+    <!-- Notification Channel -->
+    <string name="channel_description">%1$s notification channel</string>
+    <!--  -->
+
     <!-- Notifications -->
     <string name="notification_screenshot_ok">Preview image saved</string>
     <string name="notification_download_project_cancel">Canceled program download</string>
@@ -1465,6 +1479,10 @@
     <string name="ev3_sensor_hitechnic_color">HiTechnic color sensor</string>
     <string name="ev3_sensor_nxt_temperature_c">NXT temperature sensor (°C)</string>
     <string name="ev3_sensor_nxt_temperature_f">NXT temperature sensor (°F)</string>
+    <string name="ev3_sensor_nxt_light">NXT light sensor</string>
+    <string name="ev3_sensor_nxt_light_active">NXT light sensor active</string>
+    <string name="ev3_sensor_nxt_sound">NXT sound sensor</string>
+    <string name="ev3_sensor_nxt_ultrasonic">NXT ultrasonic sensor</string>
 
     <string name="ev3_motor_a">A</string>
     <string name="ev3_motor_b">B</string>
@@ -1788,6 +1806,10 @@
     <string name="formula_editor_sensor_lego_ev3_sensor_hitechnic_color">EV3_hitechnic_color</string>
     <string name="formula_editor_sensor_lego_ev3_sensor_nxt_temperature_c">EV3_NXT_temperature_°C</string>
     <string name="formula_editor_sensor_lego_ev3_sensor_nxt_temperature_f">EV3_NXT_temperature_°F</string>
+    <string name="formula_editor_sensor_lego_ev3_sensor_nxt_light">EV3_NXT_light</string>
+    <string name="formula_editor_sensor_lego_ev3_sensor_nxt_light_active">EV3_NXT_light_active</string>
+    <string name="formula_editor_sensor_lego_ev3_sensor_nxt_sound">EV3_NXT_sound</string>
+     <string name="formula_editor_sensor_lego_ev3_sensor_nxt_ultrasonic">EV3_NXT_ultrasonic</string>
     <string name="formula_editor_sensor_gamepad_a_pressed">gamepad_a_pressed</string>
     <string name="formula_editor_sensor_gamepad_b_pressed">gamepad_b_pressed</string>
     <string name="formula_editor_sensor_gamepad_up_pressed">gamepad_up_pressed</string>
